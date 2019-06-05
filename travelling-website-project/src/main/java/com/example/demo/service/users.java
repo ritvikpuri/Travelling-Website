@@ -15,9 +15,6 @@ import org.hibernate.annotations.Table;
 @Table(appliesTo = "users")
 public class users implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

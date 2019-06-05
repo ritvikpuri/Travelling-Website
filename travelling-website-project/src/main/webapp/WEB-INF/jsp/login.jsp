@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,12 +50,7 @@
 			
 			<div class="row">
 			<div class="form-group col-md-5">
-				<span class="form-label">New User? Join now</span>
-			</div>
-			<div class="form-group">
-				<button onclick="new" class="btn btn-outline-success">Sign Up</button>
-			</div>
-			</div>
+				<span class="form-label">New User? <a href="new"> Join now </a> </span>
 		</div>
 		
 		<div class="row">

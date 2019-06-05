@@ -89,11 +89,11 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<span class="form-label">Departing</span>
-								<input class="form-control" type="date" >
+								<input class="form-control" type="date" name="depdate" required>
 							</div>
 							<div class="form-group col-md-6">
 								<span class="form-label">Arriving</span>
-								<input class="form-control" type="date" >
+								<input class="form-control" type="date" name="arrdate" required>
 							</div>
 						</div>
 						

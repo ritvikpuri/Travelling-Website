@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
-import java.util.Date;
+import java.sql.Date;
+
+//import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,12 +26,12 @@ public class flights {
 	
 	@Column
 	private String arrival;
+
+	@Column
+	private Date dep_time;
 	
 	@Column
 	private Date arr_time;
-	
-	@Column
-	private Date dep_time;
 	
 	@Column
 	private int economy;
@@ -39,6 +41,9 @@ public class flights {
 	
 	@Column
 	private int first;
+	
+	@Column
+	private int price;
 
 	public String getFlight_num() {
 		return flight_num;
@@ -110,6 +115,14 @@ public class flights {
 
 	public void setFirst(int first) {
 		this.first = first;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 	

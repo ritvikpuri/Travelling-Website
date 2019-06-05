@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.sql.*"%>
 
 
 <html>
@@ -35,7 +36,7 @@
   
 }
 	</style>
-
+	
 </head>
 
 <body>
@@ -46,7 +47,7 @@
 	<font align="center" color="red">${errorMessage}</font>
 	<br>
 	
-	<table class="table table-hover">
+	<table class="table table-hover" id="flights">
 		
 		<thread>
 			<tr>
@@ -56,18 +57,20 @@
 		        <th>Arrival City</th>
 		        <th>Departure Time</th>
 		        <th>Arrival Time</th>
+		        <th>Price</th>
 			</tr>
 		</thread>
 		
 		<tbody>
 			<c:forEach items="${flightList}" var="flight">
 	        <tr>
-	        	<td> <c:out value="${flight.flight_num}"/> </td>
+	        	<td> <a href="selected/${flight.flight_num}"> <c:out value="${flight.flight_num}"/> </a> </td>
 	        	<td> <c:out value="${flight.airlines}"/> </td>
 	        	<td> <c:out value="${flight.departure}"/> </td>
 	        	<td> <c:out value="${flight.arrival}"/> </td>
 	        	<td> <c:out value="${flight.dep_time}"/> </td>
 	        	<td> <c:out value="${flight.arr_time}"/> </td>
+	        	<td> <c:out value="${flight.price}"/> </td>
 	        </tr>
     </c:forEach>
 		</tbody>
