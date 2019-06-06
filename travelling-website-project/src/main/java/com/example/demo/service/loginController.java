@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.sql.Date;
+import java.text.ParseException;
 //import java.util.Date;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class loginController {
 //	}
 	
 	@PostMapping(value="/book")
-	public String bookFlights(ModelMap model, @RequestParam String departures, @RequestParam String arrival, @RequestParam Date depdate, @RequestParam Date arrdate, @RequestParam int passengers, @RequestParam String travelClass) {
+	public String bookFlights(ModelMap model, @RequestParam String departures, @RequestParam String arrival, @RequestParam Date depdate, @RequestParam Date arrdate, @RequestParam int passengers, @RequestParam String travelClass) throws ParseException {
 		
 		List<flights> flightList =  serviceF.findFlights(departures, arrival, depdate, arrdate, passengers, travelClass);
 		model.addAttribute("flightList", flightList);
@@ -135,12 +136,17 @@ public class loginController {
 	}
 	
 	@PostMapping(value="/selected/{flightNum}")
-	public String bookSelectedFlight(@PathVariable("flightNum") String flightNum, ModelMap model) {
+	public String bookSelectedFlight(@PathVariable("flightNum") String flightNum, ModelMap model, @RequestParam String firstname, @RequestParam String lastname) {
+		model.put("flightId", flightNum);
+		serviceU.addPassenger(flightNum, firstname, lastname);
 		return "payment";
 	}
 	
+	@GetMapping(value="/payment")
+	public String showPaymentPage() {
+		return "payment";
+	}
 }
-
 
 
 

@@ -41,7 +41,7 @@
 
 <body>
 
-<form action="/selected" method="POST">
+<form action="/selected/${flightNum}" method="POST">
 <div class = "container">
 <div class="row">
 		<div class="col-md-3"></div>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="form-group col-md-6">
 					<h6> Phone Number </h6>
-					<input type="number" name="phone" class="form-control" value="loggedInUser.phone">
+					<input type="text" name="phone" class="form-control" value="${loggedInUser.phone}">
 				</div>
 			</div>
 			

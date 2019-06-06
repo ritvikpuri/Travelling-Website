@@ -13,7 +13,10 @@ public class userService {
 //	userRepo repo1;
 	
 	@Autowired
-	userdataRepo repo;
+	userdataRepo repoU;
+	
+	@Autowired
+	passengersRepo repoP;
 	
 	int id;
 	String firstname;
@@ -21,11 +24,11 @@ public class userService {
 	double phone;
 	
 	public boolean login(String username, String password) {
-		List<userdata> userData = repo.findByUsername(username);  //change this loop
+		List<userdata> userData = repoU.findByUsername(username);  //change this loop
 		for(userdata user : userData) {
 			if(user.getPassword().equals(password) && user.getUsername().equals(username)) {
 				user.setLogged_in(true);
-				repo.save(user);
+				repoU.save(user);
 				return true;
 			}
 		}
@@ -33,14 +36,14 @@ public class userService {
 	}
 
 	public boolean addUser(ModelMap model, String firstname, String lastname, String email, double phone) {
-		List<userdata> userInfo = repo.findAll(); // change
+		List<userdata> userInfo = repoU.findAll(); // change
 		if(userInfo.isEmpty()){
 			userdata temp = new userdata();
 			temp.setFirstname(firstname);
 			temp.setLastname(lastname);
 			temp.setEmail(email);
 			temp.setPhone(phone);
-			repo.save(temp);
+			repoU.save(temp);
 			return true;
 		}
 		
@@ -60,12 +63,12 @@ public class userService {
 		temp.setLastname(lastname);
 		temp.setEmail(email);
 		temp.setPhone(phone);
-		repo.save(temp);
+		repoU.save(temp);
 		return true;
 	}
 
 	public boolean setUserPass(ModelMap model, String username, String password1, String password2, String email) {
-		List<userdata> userInfo = repo.findAll();
+		List<userdata> userInfo = repoU.findAll();
 		
 		if(!password1.equals(password2)) {
 			model.put("errorPass", "Passwords do not match");
@@ -100,17 +103,33 @@ public class userService {
 		temp.setPhone(phone);
 		temp.setUsername(username);
 		temp.setPassword(password1);
-		repo.deleteById(id);
-		repo.save(temp);
+		repoU.deleteById(id);
+		repoU.save(temp);
 		return true;
 	}
 
 	public void resetAllUsers() {
-		List<userdata> listOfUsers = repo.findAll();
+		List<userdata> listOfUsers = repoU.findAll();
 		for(userdata user: listOfUsers) {
 			user.setLogged_in(false);
 		}
-		repo.saveAll(listOfUsers);
+		repoU.saveAll(listOfUsers);
+	}
+
+	public void addPassenger(String flightNum, String firstname2, String lastname2) {
+		userdata currentUser = new userdata();
+		List<userdata> listOfUsers = repoU.findAll();
+		for(userdata user: listOfUsers) {
+			if(user.isLogged_in()==true) {
+				currentUser = user;
+			}
+		}
+		passengers newPassenger = new passengers();
+		newPassenger.setFirstname(firstname2);
+		newPassenger.setLastname(lastname2);
+		newPassenger.setFlightid(flightNum);
+		newPassenger.setUserid(currentUser.getId());
+		repoP.save(newPassenger);
 	}
 }
 
