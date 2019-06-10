@@ -21,7 +21,7 @@ public class userService {
 	int id;
 	String firstname;
 	String lastname;
-	double phone;
+	String phone;
 	
 	public boolean login(String username, String password) {
 		List<userdata> userData = repoU.findByUsername(username);  //change this loop
@@ -35,7 +35,7 @@ public class userService {
 		return false;
 	}
 
-	public boolean addUser(ModelMap model, String firstname, String lastname, String email, double phone) {
+	public boolean addUser(ModelMap model, String firstname, String lastname, String email, String phone) {
 		List<userdata> userInfo = repoU.findAll(); // change
 		if(userInfo.isEmpty()){
 			userdata temp = new userdata();
@@ -52,7 +52,7 @@ public class userService {
 				model.put("errorEmail", "This email address is already registered.");
 				return false;
 			}
-			else if(user.getPhone()==phone) {
+			else if(user.getPhone().equals(phone)) {
 				model.put("errorPhone", "This phone number is already registered.");
 				return false;
 			}

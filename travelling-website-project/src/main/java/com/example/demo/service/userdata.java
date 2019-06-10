@@ -38,7 +38,7 @@ public class userdata implements Serializable{
 	private String email;
 	
 	@Column
-	private double phone;
+	private String phone;
 	
 	@Column
 	private boolean logged_in;
@@ -91,11 +91,11 @@ public class userdata implements Serializable{
 		this.email = email;
 	}
 
-	public double getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(double phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

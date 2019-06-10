@@ -50,7 +50,7 @@
 				
 				<div class="row>
 					<div class="form-group col-md-6">
-						Phone Number: <input type="number" class="form-control" name="phone" required>
+						Phone Number: <input type="text" class="form-control" name="phone" required>
 					</div>
 				</div>
 				

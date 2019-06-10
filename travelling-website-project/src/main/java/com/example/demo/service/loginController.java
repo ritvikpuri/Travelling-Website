@@ -58,7 +58,7 @@ public class loginController {
 	}
 	
 	@PostMapping(value="/new")
-	public String enterUserInformation(ModelMap model, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam double phone) {
+	public String enterUserInformation(ModelMap model, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam String phone) {
 		
 		boolean check = serviceU.addUser(model, firstname, lastname, email, phone);
 		

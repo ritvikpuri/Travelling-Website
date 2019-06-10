@@ -1,6 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 
 
 <html>
@@ -37,6 +39,44 @@
 }
 	</style>
 	
+	
+	
+	<script>
+	
+	$(document).ready(function() {
+		
+		var max_fields = 10;
+		var wrapper = $(".input_fields_wrap");
+		var add_button = $(".add_field_button");
+		
+		var x = 1;
+		$(add_button).click(function(e){
+			e.preventDefault();
+			if(x < max_fields){
+				x++;
+				$(wrapper).append('<div class="form-row"><div class="form-group col-md-2"><select class="custom-select" name="title"><option value="mr">Mr.</option><option value="mrs">Mrs.</option><option value="ms">Ms.</option></select></div><div class="form-group col-md-5"><input type="text" name="firstname" class="form-control" placeholder="First Name"></div><div class="form-group col-md-5"><input type="text" name="lastname" class="form-control" placeholder="Last Name"></div><a href="#" class="remove_field">Remove</a></div>')
+			}
+		});
+		$(wrapper).on("click",".remove_field", function(e){ 
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})
+	})
+	
+
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </head>
 
 <body>
@@ -56,13 +96,15 @@
 				<div class="form-group col-md-6">
 					<h4 align="center">Departure</h4>
 					<h6 align="center"> ${bookedFlight.departure} </h6>
-					<h6 align="center"> ${bookedFlight.dep_time}</h6>
+					<h6 align="center"> <fmt:formatDate type = "date" value = "${bookedFlight.dep_time}" /></h6>
+					<h6 align="center"> <fmt:formatDate type = "time" value = "${bookedFlight.dep_time}" /></h6>
 				</div>
 				
 				<div class="form-group col-md-6">
 					<h4 align="center">Arrival</h4>
 					<h6 align="center"> ${bookedFlight.arrival} </h6>
-					<h6 align="center"> ${bookedFlight.arr_time}</h6>
+					<h6 align="center"> <fmt:formatDate type = "date" value = "${bookedFlight.arr_time}" /></h6>
+					<h6 align="center"> <fmt:formatDate type = "time" value = "${bookedFlight.arr_time}" /></h6>
 				</div>
 			</div>
 			<br>
@@ -80,7 +122,12 @@
 				</div>
 			</div>
 			
+			
+			
+			<div class="input_fields_wrap">
 			<h4 align="center"> Traveller Information </h4>
+			<button type="button" class="add_field_button">Add More Fields</button>
+			<br><br>
 			<div class="form-row">
 				<div class="form-group col-md-2">
 						<select class="custom-select" name="title">
@@ -96,7 +143,9 @@
 					<input type="text" name="lastname" class="form-control" placeholder="Last Name">
 				</div>
 			</div>
-			<br>
+			</div>
+			
+			
 			
 			<h4 align="center"> Fare Breakdown </h4>
 	<table class="table table-hover" id="flights">		

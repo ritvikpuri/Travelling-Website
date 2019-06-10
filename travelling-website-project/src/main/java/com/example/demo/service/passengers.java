@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Table;
@@ -11,7 +13,12 @@ import org.hibernate.annotations.Table;
 public class passengers {
 	
 	@Id
-	@Column(name="userid")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "passengerid")
+	private Integer passengerid;
+	
+//	@Id
+	@Column
 	private Integer userid;
 	
 	@Column
