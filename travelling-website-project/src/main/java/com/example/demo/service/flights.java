@@ -44,6 +44,9 @@ public class flights {
 	@Column
 	private int price;
 
+	@Column
+	private String duration;
+	
 	public String getFlight_num() {
 		return flight_num;
 	}
@@ -122,6 +125,14 @@ public class flights {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 	
 	

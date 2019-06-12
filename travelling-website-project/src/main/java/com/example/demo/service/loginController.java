@@ -29,6 +29,7 @@ public class loginController {
 	userdata currentUser = new userdata();
 	ModelMap globalModel = new ModelMap();
 	int tempPassengers = 0;
+	ModelMap modifySeachModel = new ModelMap();
 	
 	@GetMapping(value = "/login")
 	public String showLoginPage(ModelMap model) {
@@ -88,6 +89,7 @@ public class loginController {
 		model.addAttribute("flightList", flightList);
 		tempPassengers = passengers;
 		
+		
 		if(flightList.isEmpty()) {
 			model.put("errorMessage", "There are no flights availale with the criteria. Please try again.");
 			return "viewflights";
@@ -109,7 +111,7 @@ public class loginController {
 		boolean check = serviceU.setUserPass(model, username, password1, password2, currentUser.getEmail());
 		
 		if(check) {
-			globalModel.addAttribute("signUpSuccess","Your accoutn was successfully created. Try logging in.");
+			globalModel.addAttribute("signUpSuccess","Your account was successfully created. Try logging in.");
 			return "login";
 		}
 		else {
