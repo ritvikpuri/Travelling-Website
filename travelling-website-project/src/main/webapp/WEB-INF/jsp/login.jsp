@@ -7,6 +7,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
 	<title> User Login Page </title>
 	
 	<style>
@@ -28,7 +30,9 @@
 		<div class="col-md-6 col-xs-12">
 			<div class="jumbotron">
 			<h1 class="text-center"> Login Page </h1>
+			<p class="lead" align="center"> Come fly with us <i class="fa fa-plane"></i> </p>
 			<font color = "red"> ${errorMessage} </font>
+			<font color = "green"> ${signUpSuccess} </font>
 			<br>
 			
 			<div class="form-group">

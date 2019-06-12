@@ -27,6 +27,8 @@ public class loginController {
 
 	
 	userdata currentUser = new userdata();
+	ModelMap globalModel = new ModelMap();
+	int tempPassengers = 0;
 	
 	@GetMapping(value = "/login")
 	public String showLoginPage(ModelMap model) {
@@ -84,6 +86,7 @@ public class loginController {
 		
 		List<flights> flightList =  serviceF.findFlights(departures, arrival, depdate, arrdate, passengers, travelClass);
 		model.addAttribute("flightList", flightList);
+		tempPassengers = passengers;
 		
 		if(flightList.isEmpty()) {
 			model.put("errorMessage", "There are no flights availale with the criteria. Please try again.");
@@ -106,6 +109,7 @@ public class loginController {
 		boolean check = serviceU.setUserPass(model, username, password1, password2, currentUser.getEmail());
 		
 		if(check) {
+			globalModel.addAttribute("signUpSuccess","Your accoutn was successfully created. Try logging in.");
 			return "login";
 		}
 		else {
@@ -129,6 +133,7 @@ public class loginController {
 		for(flights flight: listOfFlights) {
 			if(flight.getFlight_num().equals(flightNum)) {
 				model.put("bookedFlight", flight);
+				model.put("passengers", tempPassengers);
 				break;
 			}
 		}
@@ -146,6 +151,18 @@ public class loginController {
 	public String showPaymentPage() {
 		return "payment";
 	}
+	
+	@GetMapping(value="/logout")
+	public String logout() {
+		return "login";
+	}
+	
+	
+	@PostMapping(value="/logout")
+	public String returnToLogin() {
+		return "login";
+	}
+	
 }
 
 

@@ -27,6 +27,8 @@
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">	
+	
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<title>Review your Booking</title>
 	
@@ -45,7 +47,7 @@
 	
 	$(document).ready(function() {
 		
-		var max_fields = 10;
+		var max_fields = ${passengers};
 		var wrapper = $(".input_fields_wrap");
 		var add_button = $(".add_field_button");
 		
@@ -54,7 +56,7 @@
 			e.preventDefault();
 			if(x < max_fields){
 				x++;
-				$(wrapper).append('<div class="form-row"><div class="form-group col-md-2"><select class="custom-select" name="title"><option value="mr">Mr.</option><option value="mrs">Mrs.</option><option value="ms">Ms.</option></select></div><div class="form-group col-md-5"><input type="text" name="firstname" class="form-control" placeholder="First Name"></div><div class="form-group col-md-5"><input type="text" name="lastname" class="form-control" placeholder="Last Name"></div><a href="#" class="remove_field">Remove</a></div>')
+				$(wrapper).append('<div class="form-row"><div class="form-group col-md-2"><select class="custom-select" name="title"><option value="mr">Mr.</option><option value="mrs">Mrs.</option><option value="ms">Ms.</option></select></div><div class="form-group col-md-4"><input type="text" name="firstname" class="form-control" placeholder="First Name" required></div><div class="form-group col-md-4"><input type="text" name="lastname" class="form-control" placeholder="Last Name" required></div><a href="#" class="remove_field" style="color:red">X</a></div>')
 			}
 		});
 		$(wrapper).on("click",".remove_field", function(e){ 
@@ -65,18 +67,7 @@
 
 	</script>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 </head>
 
 <body>
@@ -93,16 +84,21 @@
 		
 		<div class="form-group">
 			<div class="form-row">
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-5">
 					<h4 align="center">Departure</h4>
-					<h6 align="center"> ${bookedFlight.departure} </h6>
+					<h5 align="center"> ${bookedFlight.departure} </h5>
 					<h6 align="center"> <fmt:formatDate type = "date" value = "${bookedFlight.dep_time}" /></h6>
 					<h6 align="center"> <fmt:formatDate type = "time" value = "${bookedFlight.dep_time}" /></h6>
 				</div>
 				
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-2">
+					<br><br>
+					<h5 align="center"><i class="fa fa-arrow-right"></i></h5>
+				</div>
+				
+				<div class="form-group col-md-5">
 					<h4 align="center">Arrival</h4>
-					<h6 align="center"> ${bookedFlight.arrival} </h6>
+					<h5 align="center"> ${bookedFlight.arrival} </h5>
 					<h6 align="center"> <fmt:formatDate type = "date" value = "${bookedFlight.arr_time}" /></h6>
 					<h6 align="center"> <fmt:formatDate type = "time" value = "${bookedFlight.arr_time}" /></h6>
 				</div>
@@ -126,7 +122,7 @@
 			
 			<div class="input_fields_wrap">
 			<h4 align="center"> Traveller Information </h4>
-			<button type="button" class="add_field_button">Add More Fields</button>
+			<button type="button" class="add_field_button btn btn-info" >Add More Fields</button>
 			<br><br>
 			<div class="form-row">
 				<div class="form-group col-md-2">
@@ -136,11 +132,11 @@
 							<option value="ms">Ms.</option>
 						</select>
 				</div>
-				<div class="form-group col-md-5">
-					<input type="text" name="firstname" class="form-control" placeholder="First Name">
+				<div class="form-group col-md-4">
+					<input type="text" name="firstname" class="form-control" placeholder="First Name" required>
 				</div>
-				<div class="form-group col-md-5">
-					<input type="text" name="lastname" class="form-control" placeholder="Last Name">
+				<div class="form-group col-md-4">
+					<input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
 				</div>
 			</div>
 			</div>
@@ -151,16 +147,16 @@
 	<table class="table table-hover" id="flights">		
 		<thread>
 			<tr>
-				<th>Base Fare</th>
+				<th>Base Fare<br>(${passengers} Travellers)</th>
 		        <th>Fee & Surcharge</th>
 		        <th>You Pay</th>
 			</tr>
 		</thread>
 		<tbody>
 			<tr>
-				<td>${bookedFlight.price}</td>
-				<td>${0.1*(bookedFlight.price)}</td>
-				<td>${bookedFlight.price + 0.1*(bookedFlight.price)}</td>
+				<td>${bookedFlight.price * passengers}<br>(${bookedFlight.price} * ${passengers})</td>
+				<td>${0.1*(bookedFlight.price)*passengers}<br>(${0.1*(bookedFlight.price)} * ${passengers})</td>
+				<td>${bookedFlight.price*passengers + 0.1*(bookedFlight.price)*passengers}</td>
 			</tr>
 		</tbody>
 	</table>
