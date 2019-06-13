@@ -92,7 +92,7 @@ body {
 							<td><fmt:formatDate pattern="HH:mm" type="time"
 									value="${flight.arr_time}" /></td>
 							<td><c:out value="${flight.price}" /></td>
-							<td><c:out value="${flight.duration}"/></td>
+							<td><c:out value="${flight.duration}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

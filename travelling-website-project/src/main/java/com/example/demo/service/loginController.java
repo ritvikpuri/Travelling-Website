@@ -61,16 +61,12 @@ public class loginController {
 	}
 	
 	@PostMapping(value="/new")
-	public String enterUserInformation(ModelMap model, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam String phone) {
+	public String enterUserInformation(ModelMap model, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam String phone, @RequestParam String username, @RequestParam String password1, @RequestParam String password2) {
 		
-		boolean check = serviceU.addUser(model, firstname, lastname, email, phone);
+		boolean check = serviceU.addUser(model, firstname, lastname, email, phone, username, password1, password2);
 		
 		if(check) {
-			currentUser.setFirstname(firstname);
-			currentUser.setLastname(lastname);
-			currentUser.setPhone(phone);
-			currentUser.setEmail(email);
-			return "new2";
+			return "login";
 		}
 		else {
 			return "new";
@@ -105,19 +101,7 @@ public class loginController {
 //		return "new2";
 //	}
 	
-	@PostMapping(value="/new2")
-	public String chooseUserPass(ModelMap model, @RequestParam String username, @RequestParam String password1, @RequestParam String password2) {
-		
-		boolean check = serviceU.setUserPass(model, username, password1, password2, currentUser.getEmail());
-		
-		if(check) {
-			globalModel.addAttribute("signUpSuccess","Your account was successfully created. Try logging in.");
-			return "login";
-		}
-		else {
-			return "new2";
-		}
-	}
+	
 	
 	@GetMapping(value="/selected/{flightNum}")
 	public String showSelectedFlight(@PathVariable("flightNum") String flightNum, ModelMap model) {

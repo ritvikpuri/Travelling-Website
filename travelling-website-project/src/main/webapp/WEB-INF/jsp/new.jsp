@@ -32,6 +32,7 @@ body {
 					<div class="jumbotron">
 						<h1 class="text-center">Sign up to travel</h1>
 						<font color="red">${errorPhone}</font> <font color="red">${errorEmail}</font>
+						<font color="red">${errorUsername}</font> <font color="red">${errorPassword}</font>
 						<p class="lead" align="center">Please enter you details below.</p>
 						<br>
 
@@ -55,35 +56,58 @@ body {
 							</div>
 
 							<div class="row>
-					<div class=" form-groupcol-md-6">
+					<div class="form-groupcol-md-6">
 								Phone Number: <input type="text" class="form-control"
 									name="phone" required>
 							</div>
 						</div>
 
-						<!--- <div class="row"> 
-					<div class="form-group col-md-6">
-						Date of Birth: (Optional) <input type="date" class="form-control" id="dob">
+						<div class="row">
+							<div class="form-group col-md-12">
+								Username: <input type="text" class="form-control"
+									name="username" placeholder="pick a username" required>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								Password: <input type="password" class="form-control"
+									name="password1" placeholder="pick a password" required>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								Re-enter Password: <input type="password" class="form-control"
+									name="password2" placeholder="re-enter password" required>
+							</div>
+						</div>
+
+
+						<!-- <div class="row">
+							<div class="form-group col-md-6">
+								Date of Birth: (Optional) <input type="date"
+									class="form-control" id="dob">
+							</div>
+							<div class="form-group col-md-6">
+								Gender: (Optional) <select class="custom-select" name="gender">
+									<option value="female">Female</option>
+									<option value="male">Male</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+						</div> -->
+
+						<br>
+						<div align="center">
+							<button type="submit" class="btn btn-outline-success">Sign
+								up</button>
+							<button type="reset" class="btn btn-outline-dark">Clear</button>
+						</div>
+
 					</div>
-					<div class="form-group col-md-6">
-						Gender: (Optional)
-						<select class="custom-select" name="gender">
-											<option value="female">Female</option>
-											<option value="male">Male</option>
-											<option value="other">Other</option>
-										</select>
-					</div>
-				</div> ---!>
-				
-				<br>
-				<div align="center">
-				<button type="submit" class="btn btn-outline-success">Sign up</button>
-				<button type="reset" class="btn btn-outline-dark">Clear</button>
 				</div>
-				
-			</div>
-		</div>
-		
 </body>
 
 </html>

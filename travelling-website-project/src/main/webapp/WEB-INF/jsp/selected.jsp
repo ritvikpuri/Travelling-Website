@@ -116,8 +116,7 @@ body {
 								</div>
 
 								<div class="form-group col-md-2">
-									<br>
-									<br>
+									<br> <br>
 									<h5 align="center">
 										<i class="fa fa-arrow-right"></i>
 									</h5>
@@ -157,8 +156,7 @@ body {
 								<h4 align="center">Traveller Information</h4>
 								<button type="button" class="add_field_button btn btn-info">Add
 									More Fields</button>
-								<br>
-								<br>
+								<br> <br>
 								<div class="form-row">
 									<div class="form-group col-md-2">
 										<select class="custom-select" name="title">
