@@ -3,11 +3,13 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 @Service
-public class userService {
+public class userdataService {
 
 //	@Autowired
 //	userRepo repo1;
@@ -17,6 +19,9 @@ public class userService {
 
 	@Autowired
 	passengersRepo repoP;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	int id;
 	String firstname;
@@ -44,18 +49,25 @@ public class userService {
 	}
 
 	public void addPassenger(String flightNum, String firstname2, String lastname2) {
-		userdata currentUser = new userdata();
-		List<userdata> listOfUsers = repoU.findAll();
-		for (userdata user : listOfUsers) {
-			if (user.isLogged_in() == true) {
-				currentUser = user;
+		User loggedInUser = new User();
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		List<User> listOfUsers = userRepository.findAll();
+		for (User user : listOfUsers) {
+			if (user.getUsername().equals(username)) {
+				loggedInUser = user;
 			}
 		}
 		passengers newPassenger = new passengers();
 		newPassenger.setFirstname(firstname2);
 		newPassenger.setLastname(lastname2);
 		newPassenger.setFlightid(flightNum);
-		newPassenger.setUserid(currentUser.getId());
+		newPassenger.setUserid(loggedInUser.getId());
 		repoP.save(newPassenger);
 	}
 

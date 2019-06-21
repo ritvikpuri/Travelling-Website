@@ -1,3 +1,8 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@
+taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <html>
 <head>
@@ -15,7 +20,11 @@
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
 
-<title>User Login Page</title>
+<title>Log in with your account</title>
+
+<link href="${contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
 <style>
 body {
@@ -25,51 +34,50 @@ body {
 	background-color: #cccccc;
 }
 </style>
+
 </head>
 
 <body>
 
-	<form action="/login" method="POST">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6 col-xs-12">
-					<div class="jumbotron">
-						<h1 class="text-center">Login Page</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 col-xs-12">
+				<div class="jumbotron">
+				<h1 class="text-center">Login Page</h1>
 						<p class="lead" align="center">
 							Come fly with us <i class="fa fa-plane"></i>
 						</p>
-						<font color="red"> ${errorMessage} </font> <font color="green">
-							${signUpSuccess} </font> <br>
-
-						<div class="form-group">
-							<label class="control-label" for="username">Username</label> <input
-								type="text" name="username" class="form-control"
-								placeholder="Username">
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="password">Password</label> <input
-								type="password" name="password" class="form-control"
-								placeholder="Password">
-						</div>
-
-						<input type="checkbox" name="remember"> Remember Me? <br>
 						<br>
-						<div align="center">
+					<form method="POST" action="${contextPath}/login"
+						class="form-signin">
+
+						<div class="form-group ${error != null ? 'has-error' : ''}">
+							<span>${message}</span> <input name="username" type="text"
+								class="form-control" placeholder="Username" autofocus="true" />
+								<br>
+							<input name="password" type="password" class="form-control"
+								placeholder="Password" /> <span>${error}</span> <input
+								type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+								<br>
+							<div align="center">
 							<button type="submit" class="btn btn-outline-info">Login</button>
 							<button type="reset" class="btn btn-outline-dark">Close</button>
-						</div>
-						<br>
-
-						<div class="row">
-							<div class="form-group col-md-5">
-								<span class="form-label">New User? <a href="new">
-										Join now </a>
-								</span>
 							</div>
+							<br>
+							<div>
+							<font size="4">New flyer?</font> <a href="${contextPath}/registration">Sign Up</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-							<div class="row"></div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
-
-
 </html>

@@ -1,3 +1,4 @@
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ page
 import="java.util.*"%> <%@ page import="java.sql.*"%> <%@ taglib prefix
 = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -58,11 +59,7 @@ body {
 			.ready(
 					function() {
 
-						var max_fields = $
-						{
-							passengers
-						}
-						;
+						var max_fields = ${passengers}
 						var wrapper = $(".input_fields_wrap");
 						var add_button = $(".add_field_button");
 

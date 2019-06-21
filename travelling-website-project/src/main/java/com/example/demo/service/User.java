@@ -1,31 +1,19 @@
 package com.example.demo.service;
 
-import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(appliesTo = "userdata")
-public class userdata implements Serializable{
+@Table(name="user")
+public class User {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	//@NotBlank
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
 	private String username;
 	
-	@Column
 	private String password;
 	
 	@Column
@@ -40,8 +28,11 @@ public class userdata implements Serializable{
 	@Column
 	private String phone;
 	
-	@Column
-	private boolean logged_in;
+	@Transient
+	private String passwordConfirm;
+	
+	@ManyToMany
+	private Set<Role> roles;
 
 	public int getId() {
 		return id;
@@ -65,6 +56,22 @@ public class userdata implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public String getFirstname() {
@@ -97,14 +104,6 @@ public class userdata implements Serializable{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public boolean isLogged_in() {
-		return logged_in;
-	}
-
-	public void setLogged_in(boolean logged_in) {
-		this.logged_in = logged_in;
 	}
 
 }
