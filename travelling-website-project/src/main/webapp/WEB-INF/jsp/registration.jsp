@@ -46,7 +46,7 @@ body {
 						<font color="red">${errorEmail}</font>
 						<p class="lead" align="center">Please enter you details below.</p>
 						<br>
-						
+
 						<spring:bind path="username">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
 								<form:input type="text" path="username" class="form-control"
@@ -73,43 +73,47 @@ body {
 
 						<br>
 
-						<div class="form-group">
-							<div class="row">
-								<div class="form-group col-md-6">
-									First Name: <input type="text" class="form-control"
-										name="firstname" required>
+							<spring:bind path="firstname">
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input type="text" path="firstname" class="form-control"
+										placeholder="Firstname" autofocus="true"></form:input>
+									<form:errors path="firstname"></form:errors>
 								</div>
-								<div class="form-group col-md-6">
-									Last Name: <input type="text" class="form-control"
-										name="lastname" required>
-								</div>
-							</div>
+							</spring:bind>
 
-							
-								<spring:bind path="email">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<form:input type="email" path="email" class="form-control"
-									placeholder="email" autofocus="true"></form:input>
-								<form:errors path="email"></form:errors>
-							</div>
-						</spring:bind>
-							
+							<spring:bind path="lastname">
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input type="text" path="lastname" class="form-control"
+										placeholder="Lastname" autofocus="true"></form:input>
+									<form:errors path="lastname"></form:errors>
+								</div>
+							</spring:bind>
+
+							<spring:bind path="email">
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input type="email" path="email" class="form-control"
+										placeholder="Email" autofocus="true"></form:input>
+									<form:errors path="email"></form:errors>
+								</div>
+							</spring:bind>
+
 
 							<spring:bind path="phone">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<form:input type="text" path="phone" class="form-control"
-									placeholder="phone" autofocus="true"></form:input>
-								<form:errors path="phone"></form:errors>
+								<div class="form-group ${status.error ? 'has-error' : ''}">
+									<form:input type="text" path="phone" class="form-control"
+										placeholder="Phone" maxlength="10" pattern="\d{10}"
+										autofocus="true"></form:input>
+									<form:errors path="phone"></form:errors>
+								</div>
+							</spring:bind>
+
+
+
+							<div align="center">
+								<button type="submit" class="btn btn-outline-success">Sign
+									up</button>
+								<button type="reset" class="btn btn-outline-dark">Clear</button>
 							</div>
-						</spring:bind>
-
-
-
-						<div align="center">
-							<button type="submit" class="btn btn-outline-success">Sign
-								up</button>
-							<button type="reset" class="btn btn-outline-dark">Clear</button>
-						</div>
 					</form:form>
 
 				</div>

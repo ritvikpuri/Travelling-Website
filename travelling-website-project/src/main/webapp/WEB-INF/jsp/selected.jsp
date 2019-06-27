@@ -177,7 +177,7 @@ body {
 							<div class="input_fields_wrap">
 								<h4 align="center">Traveller Information</h4>
 								<button type="button" class="add_field_button btn btn-info">Add
-									More Fields</button>
+									Passenger</button>
 								<br> <br>
 								<div class="form-row">
 									<div class="form-group col-md-2">
