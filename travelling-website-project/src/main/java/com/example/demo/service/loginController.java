@@ -2,10 +2,17 @@ package com.example.demo.service;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 //import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -41,32 +48,18 @@ public class loginController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	NotificationService notificationService;
+	
+	private Logger logger = LoggerFactory.getLogger(loginController.class);
 
 	userdata currentUser = new userdata();
 	ModelMap globalModel = new ModelMap();
 	int tempPassengers = 0;
 	ModelMap modifySeachModel = new ModelMap();
 
-//	@GetMapping(value = "/login")
-//	public String showLoginPage(ModelMap model) {
-//		serviceU.resetAllUsers();	
-//		return "login";
-//	}
-//	
-//	@PostMapping(value="/login")
-//	public String showbookPage(ModelMap model, @RequestParam String username, @RequestParam String password) {
-//		
-//		boolean check = serviceU.login(username,password);
-//		
-//		if(check) {
-//			return "book";
-//		}
-//		else {
-//			model.put("errorMessage", "Please check username or password");
-//			return "login";
-//			
-//		}
-//	}
+
 	@GetMapping(value = "/registration")
 	public String registration(Model model) {
 		model.addAttribute("userForm", new User());
@@ -105,17 +98,6 @@ public class loginController {
 
 	@GetMapping({ "/", "/book" })
 	public String book(Model model) {
-//		User loggedInUser = new User();
-//		String username;
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if (principal instanceof UserDetails) {
-//			username = ((UserDetails) principal).getUsername();
-//		} else {
-//			username = principal.toString();
-//		}
-//		if(username.equals("anonymousUser")) {
-//			return "login";
-//		}
 		return "book";
 	}
 
@@ -138,17 +120,13 @@ public class loginController {
 		}
 	}
 
-//	@GetMapping(value="/book")
-//	public String viewBookFlights() {
-//		return "book";
-//	}
 
 	@PostMapping({ "/", "/book" })
 	public String bookFlights(ModelMap model, @RequestParam String departures, @RequestParam String arrival,
-			@RequestParam Date depdate, @RequestParam Date arrdate, @RequestParam int passengers,
+			@RequestParam Date depdate, @RequestParam int passengers,
 			@RequestParam String travelClass) throws ParseException {
 
-		List<flights> flightList = serviceF.findFlights(departures, arrival, depdate, arrdate, passengers, travelClass);
+		List<flights> flightList = serviceF.findFlights(departures, arrival, depdate, passengers, travelClass);
 		model.addAttribute("flightList", flightList);
 		tempPassengers = passengers;
 
@@ -160,25 +138,28 @@ public class loginController {
 		}
 
 	}
-
-//	@GetMapping(value="/new2")
-//	public String selectFlights() {
-//		return "new2";
+	
+//	@PostMapping({ "/", "/book" })
+//	public String bookFlights(ModelMap model, @RequestParam String departures, @RequestParam String arrival,
+//			@RequestParam Date depdate, @RequestParam Date arrdate, @RequestParam int passengers,
+//			@RequestParam String travelClass) throws ParseException {
+//
+//		List<flights> flightList = serviceF.findFlights(departures, arrival, depdate, arrdate, passengers, travelClass);
+//		model.addAttribute("flightList", flightList);
+//		tempPassengers = passengers;
+//
+//		if (flightList.isEmpty()) {
+//			model.put("errorMessage", "There are no flights availale with the criteria. Please try again.");
+//			return "viewflights";
+//		} else {
+//			return "viewflights";
+//		}
+//
 //	}
+
 
 	@GetMapping(value = "/selected/{flightNum}")
 	public String showSelectedFlight(@PathVariable("flightNum") String flightNum, ModelMap model) {
-		// fetch details from db using flightNum.\
-//		userdata loggedInUser = new userdata();
-//		List<userdata> listOfUsers = repoU.findAll();
-//		for(userdata user: listOfUsers) {
-//			if(user.isLogged_in()==true) {
-//				loggedInUser = user;
-//				break;
-//			}
-//		}
-
-//		return "selected";
 
 		User loggedInUser = new User();
 		String username;
@@ -197,7 +178,7 @@ public class loginController {
 		model.put("loggedInUser", loggedInUser);
 		List<flights> listOfFlights = repoF.findAll();
 		for (flights flight : listOfFlights) {
-			if (flight.getFlight_num().equals(flightNum)) {
+			if (flight.getFlightNum().equals(flightNum)) {
 				model.put("bookedFlight", flight);
 				model.put("passengers", tempPassengers);
 				break;
@@ -205,14 +186,61 @@ public class loginController {
 		}
 		return "selected";
 	}
-
+	
+//	@PostMapping(value = "/selected/{flightNum}", produces={"application/json"})
+//	public String bookSelectedFlightForPassengers(@PathVariable("flightNum") String flightNum, ModelMap model,
+//			@RequestBody Object passenger) {
+//		model.put("flightId", flightNum);
+//		//serviceU.addPassengerFromList(flightNum, passengers);
+//		
+//		return "payment";
+//	}
+	
 	@PostMapping(value = "/selected/{flightNum}")
 	public String bookSelectedFlight(@PathVariable("flightNum") String flightNum, ModelMap model,
 			@RequestParam String firstname, @RequestParam String lastname) {
 		model.put("flightId", flightNum);
-		serviceU.addPassenger(flightNum, firstname, lastname);
+//		serviceU.addPassenger(flightNum, firstname, lastname);
+		String[] firstNames = firstname.split(",");
+		String[] lastNames = lastname.split(",");
+		List<passengers> listOfPassengers = new ArrayList<>();
+		
+		for(int i = 0; i < firstNames.length; i++) {
+			serviceU.addPassenger(flightNum, firstNames[i], lastNames[i]);
+			passengers newPassenger = new passengers();
+			newPassenger.setFirstname(firstNames[i]);
+			newPassenger.setLastname(lastNames[i]);
+			newPassenger.setFlightid(flightNum);
+			listOfPassengers.add(newPassenger);
+		}
+		
+		User loggedInUser = new User();
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		List<User> listOfUsers = userRepository.findAll();
+		for (User user : listOfUsers) {
+			if (user.getUsername().equals(username)) {
+				loggedInUser = user;
+			}
+		}
+		
+		flights flight = repoF.findByFlightNum(flightNum);
+		
+		try {
+			notificationService.sendNotificationNew(model, loggedInUser, listOfPassengers, flight);
+		}catch(MailException e) {
+			//catch error
+			logger.info("error sending message"+e.getMessage());
+		}
+		
 		return "payment";
 	}
+
 
 	@GetMapping(value = "/payment")
 	public String showPaymentPage() {

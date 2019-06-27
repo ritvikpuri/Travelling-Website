@@ -1,7 +1,6 @@
-
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ page
-import="java.util.*"%> <%@ page import="java.sql.*"%> <%@ taglib prefix
-= "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@
+page import="java.util.*"%> <%@ page import="java.sql.*"%> <%@ taglib
+prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 
 
@@ -59,7 +58,7 @@ body {
 			.ready(
 					function() {
 
-						var max_fields = ${passengers}
+						var max_fields = ${passengers};
 						var wrapper = $(".input_fields_wrap");
 						var add_button = $(".add_field_button");
 
@@ -81,6 +80,32 @@ body {
 							x--;
 						})
 					})
+
+	$('#submitForm').submit(function(e) {
+		// reference to form object
+		debugger;
+		var form = this;
+		// for stopping the default action of element
+		e.preventDefault();
+		// mapthat will hold form data
+		var formData = {}
+		//iterate over form elements   
+		$.each(this, function(i, v) {
+			var input = $(v);
+			// populate form data as key-value pairs
+			// with the name of input as key and its value as value
+			formData[input.attr("name")] = input.val();
+			console.log(formData);
+		});
+		/* $.ajax({
+			type : form.attr('method'), // method attribute of form
+			url : form.attr('action'), // action attribute of form
+			dataType : 'json',
+			contentType: "application/json",
+			// convert form data to json format
+			data : JSON.stringify(formData),
+		}); */
+	});
 </script>
 
 
@@ -88,7 +113,7 @@ body {
 
 <body>
 
-	<form action="/selected/${flightNum}" method="POST">
+	<form id="submitForm" action="/selected/${flightNum}" method="POST">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3"></div>

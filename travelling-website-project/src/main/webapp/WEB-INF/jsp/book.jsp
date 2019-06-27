@@ -53,12 +53,12 @@ body {
 								<div class="form-group col-md-3">Flight Type</div>
 								<div class="form-group col-md-3">
 									<label for="roundtrip"> <input type="radio"
-										id="roundtrip" name="flight-type" checked> <span></span>Roundtrip
+										id="roundtrip" name="flight-type" onclick="document.getElementById('arrdate').disabled=false" checked> <span></span>Roundtrip
 									</label>
 								</div>
 								<div class="form-group col-md-3">
 									<label for="oneway"> <input type="radio" id="oneway"
-										name="flight-type"> <span></span>One way
+										name="flight-type" onclick="document.getElementById('arrdate').disabled=true"> <span></span>One way
 									</label>
 								</div>
 								<div class="form-group col-md-3">
@@ -96,11 +96,11 @@ body {
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<span class="form-label">Departing</span> <input
-										class="form-control" type="date" name="depdate" required>
+										class="form-control" type="date" name="depdate" id="depdate" required>
 								</div>
 								<div class="form-group col-md-6">
-									<span class="form-label">Arriving</span> <input
-										class="form-control" type="date" name="arrdate" required>
+									<span class="form-label">Returning</span> <input
+										class="form-control" type="date" name="arrdate" id="arrdate" required>
 								</div>
 							</div>
 

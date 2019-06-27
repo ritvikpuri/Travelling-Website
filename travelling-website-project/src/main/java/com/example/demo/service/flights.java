@@ -15,7 +15,7 @@ public class flights {
 
 	@Id
 	@Column(name="flight_num")
-	private String flight_num;
+	private String flightNum;
 	
 	@Column//(name="airlines")
 	private String airlines;
@@ -47,12 +47,12 @@ public class flights {
 	@Column
 	private String duration;
 	
-	public String getFlight_num() {
-		return flight_num;
+	public String getFlightNum() {
+		return flightNum;
 	}
 
-	public void setFlight_num(String flight_num) {
-		this.flight_num = flight_num;
+	public void setFlightNum(String flight_num) {
+		this.flightNum = flight_num;
 	}
 
 	public String getAirlines() {

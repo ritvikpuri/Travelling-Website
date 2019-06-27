@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import com.example.demo.domain.PassengerList;
+
 @Service
 public class userdataService {
 
@@ -105,4 +107,10 @@ public class userdataService {
 		repoU.save(temp);
 		return true;
 	}
+
+	public void addPassengerFromList(String flightNum, PassengerList passengers) {
+		
+	}
+	
+	
 }

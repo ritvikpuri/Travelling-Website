@@ -81,8 +81,8 @@ body {
 				<tbody>
 					<c:forEach items="${flightList}" var="flight">
 						<tr>
-							<td><a href="selected/${flight.flight_num}"> <c:out
-										value="${flight.flight_num}" />
+							<td><a href="selected/${flight.flightNum}"> <c:out
+										value="${flight.flightNum}" />
 							</a></td>
 							<td><c:out value="${flight.airlines}" /></td>
 							<td><c:out value="${flight.departure}" /></td>
